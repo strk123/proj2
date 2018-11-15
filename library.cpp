@@ -42,6 +42,7 @@ void library :: input(){
 	int input_state = 0;
 	int tempi = 1;
 	int cnt = 1;
+	int datetemp=0;
 	string date, resource_type, resource_name, operation, member_type, member_name;
 	string sdate, space_type, space_number, soperation, smember_type, smember_name, number_of_member, time;
 	i_dat.open("input.dat");
@@ -57,6 +58,7 @@ void library :: input(){
 	o_dat << "Op_#\tReturn_code\tDescription" << endl; // output file의 첫줄 생성
 	s_dat >> sdate;
 	i_dat >> date;
+	datetemp = sday2int(sdate);
 	while(true) { // intput data를 한줄씩 받아서 output 생성
 		if(day2int(date)>sday2int(sdate)){
 			if(sinput_state == 0){
@@ -69,9 +71,27 @@ void library :: input(){
 					s_dat >> number_of_member;
 					s_dat >> time;	
 				}
+				if(datetemp< sday2int(sdate)){
+					cout << "초기화 \t" << sdate << endl;
+					studyrooms.clear();
+					seats.clear();
+					for(int i = 0; i < 10 ; i++){ // studyroom의 초기화
+						studyroom a;
+						a.set_room_num(i+1);
+						studyrooms.push_back(a);
+					}
+					for(int i = 0; i < 3 ; i++){ // seat의 초기화
+						for(int j = 0; j < 50 ; j++){
+							seat b;
+							b.set_floor(i+1);
+							seats.push_back(b);
+						}
+					}
+				}
 				tempi = set_sdata(sdate, space_type, space_number, soperation, smember_type, smember_name, number_of_member, time);
 				soutput(cnt,tempi);
-				cnt++;	
+				cnt++;
+				datetemp = sday2int(sdate);
 				if(!(s_dat >> sdate)){
 					sdate = "9999/99/99/99";
 					sinput_state = 1;
@@ -314,14 +334,15 @@ int library :: set_sdata(string sdate, string space_type, string space_number, s
 		for(auto a : studyrooms){
 			if(a.get_room_num() == stoi(space_number)) state = 1;
 		}
+		if(state == 0) return 8;
 	}
-	if(state == 0) return 8;
 	if(space_type == "Seat"){
 		for(auto a : seats){
 			if(a.get_floor() == stoi(space_number)) state = 1;
 		}
+		if(state == 0) return 8;
 	}
-	if(state == 0) return 8;
+	
 	state = 1;
 	if(space_type == "StudyRoom"){
 		if(!(day2time(sdate) > 8 && day2time(sdate) < 19)) return 109;////////////////9
@@ -345,8 +366,9 @@ int library :: set_sdata(string sdate, string space_type, string space_number, s
 				if(smember_name == a.get_user() && stoi(space_number) == a.get_floor()) state = 1;
 			}
 		}
+		if(state == 1) return 10;
 	}
-	if(state == 0) return 10;
+	
 	if(soperation == "B"){
 		if(space_type == "StudyRoom"){
 			for(auto a : studyrooms){
@@ -562,12 +584,12 @@ void library :: soutput(int soperation_num, int sreturn_code){
 		else if(sreturn_code/100 == 2) temp = "09 to 21.";
 		else if(sreturn_code/100 == 3) temp = "09 to 18.";
 		else temp = " ";
-		out << soperation_num << "\t" << sreturn_code << "\tThis space is not available now. Available from "<< temp << endl;
+		out << soperation_num << "\t" << sreturn_code%100 << "\tThis space is not available now. Available from "<< temp << endl;
 	}
 	else if(sreturn_code == 10) out << soperation_num << "\t" << sreturn_code << "\tYou did not borrow this place."<< endl;
 	else if(sreturn_code == 11) out << soperation_num << "\t" << sreturn_code%10 << "\tYou already borrow this kind of space" << endl;
 	else if(sreturn_code == 12) out << soperation_num << "\t" << sreturn_code%10 << "\tExceed available number." << endl;
-	else if(sreturn_code == 13) out << soperation_num << "\t" << sreturn_code%10 << "\tExceed available"<< endl;
+	else if(sreturn_code == 13) out << soperation_num << "\t" << sreturn_code%10 << "\tExceed available time."<< endl;
 	else if(sreturn_code%100 == 14){
 		temp = to_string(sreturn_code/100);
 		out << soperation_num << "\t" << sreturn_code%10 << "\tThere is no remain space. this space is avilable after " << temp << "." << endl;

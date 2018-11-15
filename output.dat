@@ -1,14 +1,14 @@
 Op_#	Return_code	Description
 1	0	Success.
 2	8	Invalid space id.
-3	8	Invalid space id.
-4	0	Success.
-5	8	Invalid space id.
-6	8	Invalid space id.
+3	9	This space is not available now. Available from 09 to 18.
+4	10	You did not borrow this place.
+5	0	Success.
+6	1	You already borrow this kind of space
 7	2	Exceed available number.
-8	8	Invalid space id.
+8	3	Exceed available
 9	0	Success.
-10	8	Invalid space id.
+10	0	Success.
 11	0	Success.
 12	0	Success.
 13	0	Success.
@@ -17,7 +17,7 @@ Op_#	Return_code	Description
 16	0	Success.
 17	0	Success.
 18	0	Success.
-19	0	Success.
+19	4	There is no remain space. this space is avilable after 12.
 20	0	Success.
 21	1	Non exist resource.
 22	2	Exceeds your possible number of borrow. Possible # of borrows: 1
