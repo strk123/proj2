@@ -9,13 +9,13 @@ library :: library() { // main에서 library를 선언했을때 모든 동작이
 
 	for(int i = 0; i < 10 ; i++){ // studyroom의 초기화
 		studyroom a;
-		a.set_room_num(i+1);
+		a.set_room_num(to_string(i+1));
 		studyrooms.push_back(a);
 	}
 	for(int i = 0; i < 3 ; i++){ // seat의 초기화
 		for(int j = 0; j < 50 ; j++){
 			seat b;
-			b.set_floor(i+1);
+			b.set_floor(to_string(i+1));
 			seats.push_back(b);
 		}
 	}
@@ -351,7 +351,6 @@ int library :: set_sdata(string sdate, string space_type, string space_number, s
 		}
 	}
 	if(state == 0) return 10;
-	state = 1;
 	if(soperation == "B"){
 		if(space_type == "StudyRoom"){
 			for(auto a : studyrooms){
@@ -370,12 +369,12 @@ int library :: set_sdata(string sdate, string space_type, string space_number, s
 	else if(space_type == "Seat"){
 		if(stoi(number_of_member) != 1) return 12;
 	}
-	state = 0;
 	if(soperation == "B"){
 		if(stoi(time) > 3) return 13;
 	}
 	int mintime = 24;
 	int i = 0;
+	state = 0;
 	if(soperation == "B"){
 		if(space_type == "StudyRoom"){
 			for(auto a : studyrooms){
