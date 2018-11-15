@@ -114,9 +114,37 @@ void library :: input(){
 						}
 						i++;
 					}
-
 				}
-				
+				// 오래 비운 자리 자동 반납
+				i = 0;
+				for(auto a : studyrooms){
+					if(a.get_status() == 2){
+						if(day2time(sdate) > a.get_come_time()){
+							a.set_user("");
+							a.set_time(0);
+							a.set_status(0);
+							a.set_borrow_time(0);
+							a.set_come_time(0);
+							studyrooms.push_back(a);
+							studyrooms.erase(studyrooms.begin() + i);
+						}
+						i++;	
+					}
+				}
+				for(auto a: seats){
+					if(a.get_status() == 2){
+						if(day2time(sdate) > a.get_come_time()){
+							a.set_user("");
+							a.set_time(0);
+							a.set_status(0);
+							a.set_borrow_time(0);
+							a.set_come_time(0);
+							seats.push_back(a);
+							seats.erase(seats.begin() + i);
+						}
+						i++;
+					}
+				}
 				
 				
 				tempi = set_sdata(sdate, space_type, space_number, soperation, smember_type, smember_name, number_of_member, time);
@@ -551,7 +579,6 @@ int library :: set_sdata(string sdate, string space_type, string space_number, s
 			for(auto a : studyrooms){
 				if(a.get_user() == smember_name){
 					a.set_status(2);
-					a.set_come_time(day2time(sdate)+1);
 					studyrooms.push_back(a);
 					studyrooms.erase(studyrooms.begin() + i);
 					return 0;
@@ -577,7 +604,6 @@ int library :: set_sdata(string sdate, string space_type, string space_number, s
 			for(auto a : studyrooms){
 				if(a.get_user() == smember_name){
 					a.set_status(1);
-					a.set_come_time(0);
 					studyrooms.push_back(a);
 					studyrooms.erase(studyrooms.begin() + i);
 					return 0;
