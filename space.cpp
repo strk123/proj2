@@ -37,22 +37,22 @@ int space :: get_come_time(){
 }
 
 studyroom :: studyroom(){
-	room_num = "0";
+	room_num = 0;
 }
-void studyroom :: set_room_num(string sroom_num){
+void studyroom :: set_room_num(int sroom_num){
 	room_num = sroom_num;
 }
-string studyroom :: get_room_num(){
+int studyroom :: get_room_num(){
 	return room_num;
 }
 
 seat :: seat(){
-	floor = "0";
+	floor = 0;
 }
-void seat :: set_floor(string sfloor){
+void seat :: set_floor(int sfloor){
 	floor = sfloor;
 }
-string seat :: get_floor(){
+int seat :: get_floor(){
 	return floor;
 }
 

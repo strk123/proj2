@@ -6,16 +6,15 @@
 using namespace std;
 
 library :: library() { // main에서 library를 선언했을때 모든 동작이 실행할 수 있게 만들었다.
-
 	for(int i = 0; i < 10 ; i++){ // studyroom의 초기화
 		studyroom a;
-		a.set_room_num(to_string(i+1));
+		a.set_room_num(i+1);
 		studyrooms.push_back(a);
 	}
 	for(int i = 0; i < 3 ; i++){ // seat의 초기화
 		for(int j = 0; j < 50 ; j++){
 			seat b;
-			b.set_floor(to_string(i+1));
+			b.set_floor(i+1);
 			seats.push_back(b);
 		}
 	}
@@ -70,10 +69,8 @@ void library :: input(){
 					s_dat >> number_of_member;
 					s_dat >> time;	
 				}
-				
-				//tempi = set_sdata(sdate, space_type, space_number, soperation, smember_type, smember_name, number_of_member, time);
-				//soutput(cnt,tempi);
-				cout << cnt << '\t' << sdate <<"\t" << "space"<< endl;
+				tempi = set_sdata(sdate, space_type, space_number, soperation, smember_type, smember_name, number_of_member, time);
+				soutput(cnt,tempi);
 				cnt++;	
 				if(!(s_dat >> sdate)){
 					sdate = "9999/99/99/99";
@@ -91,7 +88,6 @@ void library :: input(){
 				i_dat >> member_name;
 				tempi = set_data(date, resource_type, resource_name, operation, member_type, member_name); // set_data를 이용해서 return_code값을 받는다.
 				output(cnt,tempi); // output을 이용해서 return_code에 따라 output file 생성
-				cout << cnt << '\t' << date <<"resource"<< endl;
 				cnt++;	
 				if(!(i_dat >> date)){
 					input_state = 1;
@@ -316,13 +312,13 @@ int library :: set_sdata(string sdate, string space_type, string space_number, s
 	int state = 0;
 	if(space_type == "StudyRoom"){
 		for(auto a : studyrooms){
-			if(a.get_room_num() == space_number) state = 1;
+			if(a.get_room_num() == stoi(space_number)) state = 1;
 		}
 	}
 	if(state == 0) return 8;
 	if(space_type == "Seat"){
 		for(auto a : seats){
-			if(a.get_floor() == space_number) state = 1;
+			if(a.get_floor() == stoi(space_number)) state = 1;
 		}
 	}
 	if(state == 0) return 8;
@@ -341,12 +337,12 @@ int library :: set_sdata(string sdate, string space_type, string space_number, s
 	if(soperation != "B"){
 		if(space_type == "StudyRoom"){
 			for(auto a : studyrooms){
-				if(smember_name == a.get_user() && space_number == a.get_room_num()) state = 1;
+				if(smember_name == a.get_user() && stoi(space_number) == a.get_room_num()) state = 1;
 			}
 		}
 		else if(space_type == "Seat"){
 			for(auto a : seats){
-				if(smember_name == a.get_user() && space_number == a.get_floor()) state = 1;
+				if(smember_name == a.get_user() && stoi(space_number) == a.get_floor()) state = 1;
 			}
 		}
 	}
@@ -391,7 +387,7 @@ int library :: set_sdata(string sdate, string space_type, string space_number, s
 		else if(space_type == "Seat"){
 			if(space_number == "1"){
 				for(auto a : seats){
-					if(a.get_floor() == "1"){
+					if(a.get_floor() == 1){
 						if(a.get_status()==0) state = 1;
 						else if(a.get_status() == 1){
 							if(mintime > 3 + a.get_time() - day2time(sdate)) mintime =  3 + a.get_time() - day2time(sdate);
@@ -404,7 +400,7 @@ int library :: set_sdata(string sdate, string space_type, string space_number, s
 			}
 			else if(space_number == "2"){
 				for(auto a : seats){
-					if(a.get_floor() == "2"){
+					if(a.get_floor() == 2){
 						if(a.get_status()==0) state = 1;
 						else if(a.get_status() == 1){
 							if(mintime > 3 + a.get_time() - day2time(sdate)) mintime =  3 + a.get_time() - day2time(sdate);
@@ -418,7 +414,7 @@ int library :: set_sdata(string sdate, string space_type, string space_number, s
 			}
 			else if(space_number == "3"){
 				for(auto a : seats){
-					if(a.get_floor() == "3"){
+					if(a.get_floor() == 3){
 						if(a.get_status()==0) state = 1;
 						else if(a.get_status() == 1){
 							if(mintime > 3 + a.get_time() - day2time(sdate)) mintime =  3 + a.get_time() - day2time(sdate);
@@ -440,7 +436,7 @@ int library :: set_sdata(string sdate, string space_type, string space_number, s
 					a.set_user(smember_name);
 					a.set_time(day2time(sdate));
 					a.set_status(1);
-					a.set_room_num(space_number);
+					a.set_room_num(stoi(space_number));
 					studyrooms.push_back(a);
 					studyrooms.erase(studyrooms.begin() + i);
 					return 0;
@@ -454,7 +450,7 @@ int library :: set_sdata(string sdate, string space_type, string space_number, s
 					a.set_user(smember_name);
 					a.set_time(day2time(sdate));
 					a.set_status(1);
-					a.set_floor(space_number);
+					a.set_floor(stoi(space_number));
 					seats.push_back(a);
 					seats.erase(seats.begin() + i);
 					return 0;
@@ -470,7 +466,7 @@ int library :: set_sdata(string sdate, string space_type, string space_number, s
 					a.set_user("");
 					a.set_time(0);
 					a.set_status(0);
-					a.set_room_num(space_number);
+					a.set_room_num(stoi(space_number));
 					studyrooms.push_back(a);
 					studyrooms.erase(studyrooms.begin() + i);
 					return 0;
@@ -484,7 +480,7 @@ int library :: set_sdata(string sdate, string space_type, string space_number, s
 					a.set_user("");
 					a.set_time(0);
 					a.set_status(0);
-					a.set_floor(space_number);
+					a.set_floor(stoi(space_number));
 					seats.push_back(a);
 					seats.erase(seats.begin() + i);
 					return 0;

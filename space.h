@@ -24,11 +24,11 @@ public:
 
 class studyroom : public space{
 private:
-	string room_num;
+	int room_num;
 public:
 	studyroom();
-	void set_room_num(string sroom_num);
-	string get_room_num();
+	void set_room_num(int sroom_num);
+	int get_room_num();
 
 };
 
@@ -36,10 +36,10 @@ public:
 
 class seat : public space{
 private:
-	string floor;
+	int floor;
 public:
 	seat();
-	void set_floor(string sfloor);
-	string get_floor();
+	void set_floor(int sfloor);
+	int get_floor();
 
 };
