@@ -71,8 +71,7 @@ void library :: input(){
 					s_dat >> number_of_member;
 					s_dat >> time;	
 				}
-				if(datetemp< sday2int(sdate)){
-					cout << "초기화 \t" << sdate << endl;
+				if(datetemp< sday2int(sdate)){ // 날짜가 바뀌었을 때
 					studyrooms.clear();
 					seats.clear();
 					for(int i = 0; i < 10 ; i++){ // studyroom의 초기화
@@ -88,6 +87,38 @@ void library :: input(){
 						}
 					}
 				}
+				//만료 좌석 확인
+				int i = 0;
+				for(auto a : studyrooms){
+					if(a.get_status() != 0){
+						if(day2time(sdate) > a.get_time() + a.get_borrow_time()){
+							a.set_user("");
+							a.set_time(0);
+							a.set_status(0);
+							a.set_borrow_time(0);
+							studyrooms.push_back(a);
+							studyrooms.erase(studyrooms.begin() + i);
+						}
+						i++;	
+					}
+				}
+				for(auto a: seats){
+					if(a.get_status() != 0){
+						if(day2time(sdate) > a.get_time() + a.get_borrow_time()){
+							a.set_user("");
+							a.set_time(0);
+							a.set_status(0);
+							a.set_borrow_time(0);
+							seats.push_back(a);
+							seats.erase(seats.begin() + i);
+						}
+						i++;
+					}
+
+				}
+				
+				
+				
 				tempi = set_sdata(sdate, space_type, space_number, soperation, smember_type, smember_name, number_of_member, time);
 				soutput(cnt,tempi);
 				cnt++;
@@ -459,6 +490,7 @@ int library :: set_sdata(string sdate, string space_type, string space_number, s
 					a.set_time(day2time(sdate));
 					a.set_status(1);
 					a.set_room_num(stoi(space_number));
+					a.set_borrow_time(stoi(time));
 					studyrooms.push_back(a);
 					studyrooms.erase(studyrooms.begin() + i);
 					return 0;
@@ -473,6 +505,7 @@ int library :: set_sdata(string sdate, string space_type, string space_number, s
 					a.set_time(day2time(sdate));
 					a.set_status(1);
 					a.set_floor(stoi(space_number));
+					a.set_borrow_time(stoi(time));
 					seats.push_back(a);
 					seats.erase(seats.begin() + i);
 					return 0;
@@ -489,6 +522,7 @@ int library :: set_sdata(string sdate, string space_type, string space_number, s
 					a.set_time(0);
 					a.set_status(0);
 					a.set_room_num(stoi(space_number));
+					a.set_borrow_time(0);
 					studyrooms.push_back(a);
 					studyrooms.erase(studyrooms.begin() + i);
 					return 0;
@@ -503,6 +537,7 @@ int library :: set_sdata(string sdate, string space_type, string space_number, s
 					a.set_time(0);
 					a.set_status(0);
 					a.set_floor(stoi(space_number));
+					a.set_borrow_time(0);
 					seats.push_back(a);
 					seats.erase(seats.begin() + i);
 					return 0;
@@ -587,12 +622,12 @@ void library :: soutput(int soperation_num, int sreturn_code){
 		out << soperation_num << "\t" << sreturn_code%100 << "\tThis space is not available now. Available from "<< temp << endl;
 	}
 	else if(sreturn_code == 10) out << soperation_num << "\t" << sreturn_code << "\tYou did not borrow this place."<< endl;
-	else if(sreturn_code == 11) out << soperation_num << "\t" << sreturn_code%10 << "\tYou already borrow this kind of space" << endl;
-	else if(sreturn_code == 12) out << soperation_num << "\t" << sreturn_code%10 << "\tExceed available number." << endl;
-	else if(sreturn_code == 13) out << soperation_num << "\t" << sreturn_code%10 << "\tExceed available time."<< endl;
+	else if(sreturn_code == 11) out << soperation_num << "\t" << sreturn_code << "\tYou already borrow this kind of space" << endl;
+	else if(sreturn_code == 12) out << soperation_num << "\t" << sreturn_code << "\tExceed available number." << endl;
+	else if(sreturn_code == 13) out << soperation_num << "\t" << sreturn_code << "\tExceed available time."<< endl;
 	else if(sreturn_code%100 == 14){
 		temp = to_string(sreturn_code/100);
-		out << soperation_num << "\t" << sreturn_code%10 << "\tThere is no remain space. this space is avilable after " << temp << "." << endl;
+		out << soperation_num << "\t" << sreturn_code%100 << "\tThere is no remain space. this space is avilable after " << temp << "." << endl;
 	}
 	out.close();
 }

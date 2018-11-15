@@ -8,10 +8,12 @@ space :: space(){
 	time = 0;
 	status = 0;
 	come_time = 0;
+	borrow_time = 0;
 }
 void space :: set_user(string suser){
 	user = suser;
 }
+
 string space :: get_user(){
 	return user;
 }
@@ -34,6 +36,12 @@ void space :: set_come_time(int stime){
 }
 int space :: get_come_time(){
 	return come_time;
+}
+void space :: set_borrow_time(int sborrow_time){
+	borrow_time = sborrow_time;
+}
+int space :: get_borrow_time(){
+	return borrow_time;
 }
 
 studyroom :: studyroom(){

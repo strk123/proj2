@@ -8,6 +8,7 @@ private:
 	int time;
 	int status;
 	int come_time;
+	int borrow_time;
 public:
 	space();
 	void set_user(string suser);
@@ -18,6 +19,8 @@ public:
 	int get_status();
 	void set_come_time(int stime);
 	int get_come_time();
+	void set_borrow_time(int sborrow_time);
+	int get_borrow_time();
 };
 
 
