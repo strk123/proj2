@@ -7,6 +7,7 @@ space :: space(){
 	user = "";
 	time = 0;
 	status = 0;
+	come_time = 0;
 }
 void space :: set_user(string suser){
 	user = suser;
@@ -28,7 +29,12 @@ void space :: set_status(int sstatus){
 int space :: get_status(){
 	return status;
 }
-
+void space :: set_come_time(int stime){
+	come_time = stime;
+}
+int space :: get_come_time(){
+	return come_time;
+}
 
 studyroom :: studyroom(){
 	room_num = "0";

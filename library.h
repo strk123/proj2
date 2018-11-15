@@ -24,6 +24,6 @@ public:
 	int sday2int(string sday);
 	string sint2day(int sday);
 	int set_sdata(string sdate, string space_type, string space_number, string soperation, string smember_type, string smember_name, string number_of_member, string time);
-	//void soutput(int soperation_num, int sreturn_code);
+	void soutput(int soperation_num, int sreturn_code);
 	int day2time(string day)
 };

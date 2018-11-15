@@ -7,6 +7,7 @@ private:
 	string user;
 	int time;
 	int status;
+	int come_time;
 public:
 	space();
 	void set_user(string suser);
@@ -15,6 +16,8 @@ public:
 	int get_time();
 	void set_status(int sstatus);
 	int get_status();
+	void set_come_time(int stime);
+	int get_come_time();
 };
 
 

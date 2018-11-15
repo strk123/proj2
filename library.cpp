@@ -316,38 +316,237 @@ int library :: set_sdata(string sdate, string space_type, string space_number, s
 	int state = 0;
 	if(space_type == "StudyRoom"){
 		for(auto a : studyrooms){
-			if(a.get_room_num() == space_number){
-				if(a.get_status() == 0) state = 1;
-			}
+			if(a.get_room_num() == space_number) state = 1;
 		}
 	}
 	if(state == 0) return 8;
 	if(space_type == "Seat"){
 		for(auto a : seats){
-			if(a.get_floor() == space_number){
-				if(a.get_status() == 0) state = 1;
-			}
+			if(a.get_floor() == space_number) state = 1;
 		}
 	}
 	if(state == 0) return 8;
-	state = 0;
+	state = 1;
 	if(space_type == "StudyRoom"){
-		if(!(day2time(sdate) > 8 && day2time(sdate) < 19)) return 7;
+		if(!(day2time(sdate) > 8 && day2time(sdate) < 19)) return 109;////////////////9
 	}
 	if(space_type == "Seat"){
 		if(space_number == "2"){
-			if(!(day2time(sdate) > 8 && day2time(sdate) < 22)) return 7;
+			if(!(day2time(sdate) > 8 && day2time(sdate) < 22)) return 209;
 		}
 		else if(space_number == "3"){
-			if(!(day2time(sdate) > 8 && day2time(sdate) < 19)) return 7;
+			if(!(day2time(sdate) > 8 && day2time(sdate) < 19)) return 309;
+		}
+	}
+	if(soperation != "B"){
+		if(space_type == "StudyRoom"){
+			for(auto a : studyrooms){
+				if(smember_name == a.get_user() && space_number == a.get_room_num()) state = 1;
+			}
+		}
+		else if(space_type == "Seat"){
+			for(auto a : seats){
+				if(smember_name == a.get_user() && space_number == a.get_floor()) state = 1;
+			}
+		}
+	}
+	if(state == 0) return 10;
+	state = 1;
+	if(soperation == "B"){
+		if(space_type == "StudyRoom"){
+			for(auto a : studyrooms){
+				if(smember_name == a.get_user()) return 11;
+			}
+		}
+		else if(space_type == "Seat"){
+			for(auto a : seats){
+				if(smember_name == a.get_user()) return 11;
+			}
 		}
 	}
 	if(space_type == "StudyRoom"){
-		if(stoi(number_of_member)>6) return 6;
+		if(stoi(number_of_member)>6) return 12;
 	}
 	else if(space_type == "Seat"){
-		if(stoi(number_of_member) != 1) return 6;
+		if(stoi(number_of_member) != 1) return 12;
 	}
+	state = 0;
+	if(soperation == "B"){
+		if(stoi(time) > 3) return 13;
+	}
+	int mintime = 24;
+	int i = 0;
+	if(soperation == "B"){
+		if(space_type == "StudyRoom"){
+			for(auto a : studyrooms){
+				if(a.get_status()==0) state = 1;
+				else if(a.get_status() == 1){
+					if(mintime > 3 + a.get_time() - day2time(sdate)) mintime =  3 + a.get_time() - day2time(sdate);
+				}
+			}
+			if(state == 0){
+				if(mintime + day2time(sdate) > 18) return 14 + 1800;
+			 	else return 14 + (mintime + day2time(sdate))*100;
+			}
+		}
+		else if(space_type == "Seat"){
+			if(space_number == "1"){
+				for(auto a : seats){
+					if(a.get_floor() == "1"){
+						if(a.get_status()==0) state = 1;
+						else if(a.get_status() == 1){
+							if(mintime > 3 + a.get_time() - day2time(sdate)) mintime =  3 + a.get_time() - day2time(sdate);
+						}
+					}
+				}
+				if(state == 0){
+					return 14 + (mintime + day2time(sdate))*100;
+				}
+			}
+			else if(space_number == "2"){
+				for(auto a : seats){
+					if(a.get_floor() == "2"){
+						if(a.get_status()==0) state = 1;
+						else if(a.get_status() == 1){
+							if(mintime > 3 + a.get_time() - day2time(sdate)) mintime =  3 + a.get_time() - day2time(sdate);
+						}
+					}
+				}
+				if(state == 0){
+					if(mintime + day2time(sdate) > 21) return 14 + 2100;
+					else return 14 + (mintime + day2time(sdate))*100;
+				}	
+			}
+			else if(space_number == "3"){
+				for(auto a : seats){
+					if(a.get_floor() == "3"){
+						if(a.get_status()==0) state = 1;
+						else if(a.get_status() == 1){
+							if(mintime > 3 + a.get_time() - day2time(sdate)) mintime =  3 + a.get_time() - day2time(sdate);
+						}
+					}
+				}
+				if(state == 0){
+					if(mintime + day2time(sdate) > 18) return 14 + 1800;
+					else return 14 + (mintime + day2time(sdate))*100;
+				}	
+			}
+		}
+	}
+	i = 0;
+	if(soperation == "B"){
+		if(space_type == "StudyRoom"){
+			for(auto a : studyrooms){
+				if(a.get_status() == 0){
+					a.set_user(smember_name);
+					a.set_time(day2time(sdate));
+					a.set_status(1);
+					a.set_room_num(space_number);
+					studyrooms.push_back(a);
+					studyrooms.erase(studyrooms.begin() + i);
+					return 0;
+				}
+				i++;
+			}
+		}
+		else if(space_type == "Seat"){
+			for(auto a : seats){
+				if(a.get_status() == 0){
+					a.set_user(smember_name);
+					a.set_time(day2time(sdate));
+					a.set_status(1);
+					a.set_floor(space_number);
+					seats.push_back(a);
+					seats.erase(seats.begin() + i);
+					return 0;
+				}
+				i++;
+			}
+		}
+	}
+	else if(soperation == "R"){
+		if(space_type == "StudyRoom"){
+			for(auto a : studyrooms){
+				if(a.get_user() == smember_name){
+					a.set_user("");
+					a.set_time(0);
+					a.set_status(0);
+					a.set_room_num(space_number);
+					studyrooms.push_back(a);
+					studyrooms.erase(studyrooms.begin() + i);
+					return 0;
+				}
+				i++;
+			}
+		}
+		else if(space_type == "Seat"){
+			for(auto a : seats){
+				if(a.get_user() == smember_name){
+					a.set_user("");
+					a.set_time(0);
+					a.set_status(0);
+					a.set_floor(space_number);
+					seats.push_back(a);
+					seats.erase(seats.begin() + i);
+					return 0;
+				}
+				i++;
+			}
+		}	
+	}
+	else if(soperation == "E"){
+		if(space_type == "StudyRoom"){
+			for(auto a : studyrooms){
+				if(a.get_user() == smember_name){
+					a.set_status(2);
+					a.set_come_time(day2time(sdate)+1);
+					studyrooms.push_back(a);
+					studyrooms.erase(studyrooms.begin() + i);
+					return 0;
+				}
+				i++;
+			}
+		}
+		else if(space_type == "Seat"){
+			for(auto a : seats){
+				if(a.get_user() == smember_name){
+					a.set_status(2);
+					a.set_come_time(day2time(sdate)+1);
+					seats.push_back(a);
+					seats.erase(seats.begin() + i);
+					return 0;
+				}
+				i++;
+			}
+		}		
+	}
+	else if(soperation == "C"){
+		if(space_type == "StudyRoom"){
+			for(auto a : studyrooms){
+				if(a.get_user() == smember_name){
+					a.set_status(1);
+					a.set_come_time(0);
+					studyrooms.push_back(a);
+					studyrooms.erase(studyrooms.begin() + i);
+					return 0;
+				}
+				i++;
+			}
+		}
+		else if(space_type == "Seat"){
+			for(auto a : seats){
+				if(a.get_user() == smember_name){
+					a.set_status(1);
+					a.set_come_time(0);
+					seats.push_back(a);
+					seats.erase(seats.begin() + i);
+					return 0;
+				}
+				i++;
+			}
+		}		
+	}
+	
 	
 	
 }
@@ -356,4 +555,27 @@ int library :: day2time(string day){
 	t = day[11];
 	t = t + day[12];
 	return stoi(t);
+}
+void library :: soutput(int soperation_num, int sreturn_code){
+	ofstream out;
+	out.open("output.dat", ios::app);
+	string temp;
+	if(sreturn_code == 0) out << soperation_num << "\t" << sreturn_code << "\tSuccess." << endl;
+	else if(sreturn_code == 8) out << soperation_num << "\t" << sreturn_code << "\tInvalid space id." << endl;
+	else if(sreturn_code%100 == 9){
+		if(sreturn_code/100 == 1) temp = "09 to 18.";
+		else if(sreturn_code/100 == 2) temp = "09 to 21.";
+		else if(sreturn_code/100 == 3) temp = "09 to 18.";
+		else temp = " ";
+		out << soperation_num << "\t" << sreturn_code << "\tThis space is not available now. Available from "<< temp << endl;
+	}
+	else if(sreturn_code == 10) out << soperation_num << "\t" << sreturn_code << "\tYou did not borrow this place."<< endl;
+	else if(sreturn_code == 11) out << soperation_num << "\t" << sreturn_code%10 << "\tYou already borrow this kind of space" << endl;
+	else if(sreturn_code == 12) out << soperation_num << "\t" << sreturn_code%10 << "\tExceed available number." << endl;
+	else if(sreturn_code == 13) out << soperation_num << "\t" << sreturn_code%10 << "\tExceed available"<< endl;
+	else if(sreturn_code%100 == 14){
+		temp = to_string(sreturn_code/100);
+		out << soperation_num << "\t" << sreturn_code%10 << "\tThere is no remain space. this space is avilable after " << temp << "." << endl;
+	}
+	out.close();
 }
