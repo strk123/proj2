@@ -1,3 +1,6 @@
+## 실행
+	make 명령어 입력 시 proj생성.
+	proj 실행.
 ## main
 main에서는 ` library YSC; `라는 코드를 통해서 library에 정의된 library()를 call하게 된다. 이 과제의 모든 동작은 library()함수 내부에서 처리해주게 된다.
 ## library
