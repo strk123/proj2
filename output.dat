@@ -1,12 +1,48 @@
 Op_#	Return_code	Description
-1	1	Non exist resource.
+1	0	Success.
 2	0	Success.
 3	1	Non exist resource.
 4	2	Exceeds your possible number of borrow. Possible # of borrows: 1
 5	2	Exceeds your possible number of borrow. Possible # of borrows: 1
-6	5	Other member already borrowed this book. This book will be returned at 19/04/01
-7	7	Delayed return. You'll be restricted until 19/04/03
-8	0	Success.
-9	2	Exceeds your possible number of borrow. Possible # of borrows: 1
-10	0	Success.
-11	3	You did not borrow this book.
+6	5	Other member already borrowed this book. This book will be returned at 19/04/03
+7	7	Delayed return. You'll be restricted until 19/04/05
+8	6	Restricted member until 19/04/05
+9	0	Success.
+10	3	You did not borrow this book.
+11	0	Success.
+12	15	Exceeds your storage capacity.
+13	0	Success.
+14	3	You did not borrow this book.
+15	0	Success.
+16	4	You already borrow this book at 19/04/09
+17	4	You already borrow this book at 19/04/09
+18	4	You already borrow this book at 19/04/09
+19	4	You already borrow this book at 19/04/09
+20	16	Previously borrowed books are overdue, so borrow is limited.
+21	6	Restricted member until 20/06/16
+22	6	Restricted member until 20/06/16
+23	6	Restricted member until 20/06/16
+24	6	Restricted member until 20/06/16
+25	6	Restricted member until 20/06/16
+26	6	Restricted member until 20/06/16
+27	6	Restricted member until 20/06/16
+28	6	Restricted member until 20/06/16
+29	6	Restricted member until 20/06/16
+30	6	Restricted member until 20/06/16
+31	6	Restricted member until 20/06/16
+32	6	Restricted member until 20/06/16
+33	1	Non exist resource.
+34	1	Non exist resource.
+35	1	Non exist resource.
+36	1	Non exist resource.
+37	1	Non exist resource.
+38	1	Non exist resource.
+39	3	You did not borrow this book.
+40	3	You did not borrow this book.
+41	3	You did not borrow this book.
+42	3	You did not borrow this book.
+43	3	You did not borrow this book.
+44	6	Restricted member until 20/06/16
+45	6	Restricted member until 20/06/16
+46	0	Success.
+47	5	Other member already borrowed this book. This book will be returned at 19/04/19

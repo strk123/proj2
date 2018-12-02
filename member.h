@@ -18,6 +18,7 @@ private:
 	string day;
 	int capacity;
 	bool ban;
+	vector<string> e_books;
 public:
 	undergraduate();
 	undergraduate(string sname);
@@ -33,6 +34,8 @@ public:
 	int get_capacity();
 	void set_ban(bool sban);
 	bool get_ban();
+	void set_e_books(string se_book);
+	void erase_e_books(string se_book);
 };
 
 class graduate : public member{
@@ -43,6 +46,7 @@ private:
 	vector<string> day;
 	int capacity;
 	bool ban;
+	vector<string> e_books;
 public:
 	graduate();
 	graduate(string sname);
@@ -61,6 +65,8 @@ public:
 	int get_capacity();
 	void set_ban(bool sban);
 	bool get_ban();
+	void set_e_books(string se_book);
+	void erase_e_books(string se_book);
 };
 
 class faculty : public member{
@@ -71,6 +77,7 @@ private:
 	vector<string> day;
 	int capacity;
 	bool ban;
+	vector<string> e_books;
 public:
 	faculty();
 	faculty(string sname);
@@ -89,4 +96,6 @@ public:
 	int get_capacity();
 	void set_ban(bool sban);
 	bool get_ban();
+	void set_e_books(string se_book);
+	void erase_e_books(string se_book);
 };

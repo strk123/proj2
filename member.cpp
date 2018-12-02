@@ -65,6 +65,17 @@ void undergraduate :: set_ban(bool sban){
 bool undergraduate :: get_ban(){
 	return ban;
 }
+void undergraduate :: set_e_books(string se_book){
+	e_books.push_back(se_book);
+}
+void undergraduate :: erase_e_books(string se_book){
+	for(int i = 0; i < e_books.size() ; i++){
+		if(e_books.at(i) == se_book){
+			e_books.erase(e_books.begin()+i);
+			break;
+		}
+	}
+}
 
 
 ////////////graduate/////////
@@ -94,7 +105,7 @@ void graduate :: set_book_name(string sbook_name){
 	book_name.push_back(sbook_name);
 }
 void graduate :: erase_book_name(string sbook_name){
-	for(int i = 0; i < book_num ; i++){
+	for(int i = 0; i < book_name.size() ; i++){
 		if(book_name.at(i) == sbook_name){
 			book_name.erase(book_name.begin()+i);
 			break;
@@ -125,7 +136,7 @@ void graduate :: erase_day(string sbook_name){
 	}	
 }
 string graduate :: get_day(string sbook_name){
-	for(int i = 0; i < book_num ; i++){
+	for(int i = 0; i < book_name.size() ; i++){
 		if(book_name.at(i) == sbook_name){
 			return day.at(i);
 		}
@@ -147,7 +158,17 @@ void graduate :: set_ban(bool sban){
 bool graduate :: get_ban(){
 	return ban;
 }
-
+void graduate :: set_e_books(string se_book){
+	e_books.push_back(se_book);
+}
+void graduate :: erase_e_books(string se_book){
+	for(int i = 0; i < e_books.size() ; i++){
+		if(e_books.at(i) == se_book){
+			e_books.erase(e_books.begin()+i);
+			break;
+		}
+	}
+}
 
 ////////////faculty/////////
 faculty :: faculty(){
@@ -176,7 +197,7 @@ void faculty :: set_book_name(string sbook_name){
 	book_name.push_back(sbook_name);
 }
 void faculty :: erase_book_name(string sbook_name){
-	for(int i = 0; i < book_num ; i++){
+	for(int i = 0; i < book_name.size() ; i++){
 		if(book_name.at(i) == sbook_name){
 			book_name.erase(book_name.begin()+i);
 			break;
@@ -200,7 +221,7 @@ void faculty :: set_day(string sday){
 }
 void faculty :: erase_day(string sbook_name){
 	int temp;
-	for(int i = 0; i < book_num ; i++){
+	for(int i = 0; i < book_name.size() ; i++){
 		if(book_name.at(i) == sbook_name){
 			 day.erase(book_name.begin()+i);
 		}
@@ -229,3 +250,15 @@ void faculty :: set_ban(bool sban){
 bool faculty :: get_ban(){
 	return ban;
 }
+void faculty :: set_e_books(string se_book){
+	e_books.push_back(se_book);
+}
+void faculty :: erase_e_books(string se_book){
+	for(int i = 0; i < e_books.size() ; i++){
+		if(e_books.at(i) == se_book){
+			e_books.erase(e_books.begin()+i);
+			break;
+		}
+	}
+}
+
