@@ -13,3 +13,5 @@ member.o : member.cpp
 
 resource.o : resource.cpp
 	g++ -std=c++11 -c resource.cpp
+clean :
+	rm proj main.o library.o member.o resource.o

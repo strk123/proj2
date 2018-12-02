@@ -9,7 +9,11 @@ using namespace std;
 class library {
 private:
 	vector<book> books;
+	vector<magazine> magazines;
+	vector<e_book> e_books;
 	vector<undergraduate> undergraduates;
+	vector<graduate> graduates;
+	vector<faculty> faculties;
 public:
 	library();
 	void set_books(); // resource file을 읽어 초기 books에 저장
