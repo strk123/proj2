@@ -145,10 +145,37 @@ void library :: input(){
 						i++;
 					}
 				}
-				
-				
-				tempi = set_sdata(sdate, space_type, space_number, soperation, smember_type, smember_name, number_of_member, time);
-				soutput(cnt,tempi);
+				try{
+					if(sday2int(sdate)<sday2int("2010/01/01/00")) throw 1;
+					else if(space_type != "StudyRoom" && space_type != "Seat") throw 2;
+					else if(soperation !="B" && soperation != "R" && soperation != "E" && soperation !="C") throw 3;
+					else if(smember_type != "Undergraduate" && smember_type != "Graduate" && smember_type != "Faculty") throw 4;
+					else if(isinnum(smember_name)) throw 5;
+					else if(time.at(0)=='-') throw 6;
+					else{
+						tempi = set_sdata(sdate, space_type, space_number, soperation, smember_type, smember_name, number_of_member, time);
+						soutput(cnt,tempi);
+					}
+				}
+				catch(int a){
+					char c;
+						while(s_dat.get(c)){
+							if(c == '\n') break;
+						}
+					ofstream out;
+					out.open("output.dat", ios::app);
+					out << cnt << "\t" << "-1" ;
+					if(a == 1) out << "\tDate out of range" << endl;
+					if(a == 2){
+			
+						out << "\tNon-exist space type" << endl;
+					}
+					if(a == 3) out << "\tNon-exist operation" << endl;
+					if(a == 4) out << "\tNon-exist member type" << endl;
+					if(a == 5) out << "\tMember name with numbers" << endl;
+					if(a == 6) out << "\tNegative time" << endl;
+					out.close();
+				}	
 				cnt++;
 				datetemp = sday2int(sdate);
 				if(!(s_dat >> sdate)){
@@ -656,4 +683,10 @@ void library :: soutput(int soperation_num, int sreturn_code){
 		out << soperation_num << "\t" << sreturn_code%100 << "\tThere is no remain space. this space is avilable after " << temp << "." << endl;
 	}
 	out.close();
+}
+bool library :: isinnum(string s){
+	for(int i = 48; i < 58; i++){
+		if(s.find(i) != -1) return true;
+	}
+	return false;
 }

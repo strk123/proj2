@@ -1,10 +1,10 @@
 Date[yy/mm/dd/hh]	Space_type	Space_number	Operation	Member_type	Member_name	Number_of_member	Time
-2018/11/01/09	StudyRoom	1	B	Undergraduate	Tom	4	3
-2018/11/01/10	Seat	4	B	Undergraduate	BruceLee	1	3
-2018/11/02/06	Seat	3	B	Undergraduate	BruceLee	1	3
-2018/11/02/10	StudyRoom	1	R	Undergraduate	Tom
-2018/11/02/11	Seat	1	B	Undergraduate	BruceLee	1	2
-2018/11/02/12	Seat	2	B	Undergraduate	BruceLee	1	1
+2008/11/01/09	StudyRoom	1	B	Undergraduate	Tom	4	3
+2018/11/01/10	Seatt	4	B	Undergraduate	BruceLee	1	3
+2018/11/02/06	Seat	3	K	Undergraduate	BruceLee	1	3
+2018/11/02/10	StudyRoom	1	R	rUndergraduate	Tom
+2018/11/02/11	Seat	1	B	Undergraduate	1BruceLee	1	2
+2018/11/02/12	Seat	2	B	Undergraduate	BruceLee	1	-1
 2018/11/03/10	StudyRoom	1	B	Undergraduate	Tom	100	3
 2018/11/03/10	Seat	1	B	Undergraduate	BruceLee	1	10
 2018/11/04/09	StudyRoom	1	B	Undergraduate	Irving	5	3
