@@ -1,0 +1,61 @@
+Op_#	Return_code	Description
+1	0	Success.
+2	0	Success.
+3	1	Non exist resource.
+4	2	Exceeds your possible number of borrow. Possible # of borrows: 1
+5	2	Exceeds your possible number of borrow. Possible # of borrows: 1
+6	5	Other member already borrowed this book. This book will be returned at 19/04/03
+7	7	Delayed return. You'll be restricted until 19/04/05
+8	6	Restricted member until 19/04/05
+9	0	Success.
+10	3	You did not borrow this book.
+11	0	Success.
+12	15	Exceeds your storage capacity.
+13	0	Success.
+14	3	You did not borrow this book.
+15	0	Success.
+16	4	You already borrowed this book at 19/06/13
+17	4	You already borrowed this book at 19/06/13
+18	0	Success.
+19	4	You already borrowed this book at 19/07/13
+20	1	Non exist resource.
+21	16	Previously borrowed books are overdue, so borrow is limited
+22	16	Previously borrowed books are overdue, so borrow is limited
+23	16	Previously borrowed books are overdue, so borrow is limited
+24	16	Previously borrowed books are overdue, so borrow is limited
+25	16	Previously borrowed books are overdue, so borrow is limited
+26	16	Previously borrowed books are overdue, so borrow is limited
+27	16	Previously borrowed books are overdue, so borrow is limited
+28	16	Previously borrowed books are overdue, so borrow is limited
+29	16	Previously borrowed books are overdue, so borrow is limited
+30	16	Previously borrowed books are overdue, so borrow is limited
+31	16	Previously borrowed books are overdue, so borrow is limited
+32	16	Previously borrowed books are overdue, so borrow is limited
+33	1	Non exist resource.
+34	7	Delayed return. You'll be restricted until 20/07/02
+35	1	Non exist resource.
+36	1	Non exist resource.
+37	1	Non exist resource.
+38	1	Non exist resource.
+39	3	You did not borrow this book.
+40	3	You did not borrow this book.
+41	3	You did not borrow this book.
+42	3	You did not borrow this book.
+43	3	You did not borrow this book.
+44	6	Restricted member until 20/06/16
+45	6	Restricted member until 20/06/16
+46	0	Success.
+47	5	Other member already borrowed this book. This book will be returned at 19/04/19
+48	0	Success.
+49	0	Success.
+50	0	Success.
+51	0	Success.
+52	0	Success.
+53	0	Success.
+54	0	Success.
+55	0	Success.
+56	0	Success.
+57	0	Success.
+58	2	Exceeds your possible number of borrow. Possible # of borrows: 5
+59	0	Success.
+60	4	You already borrowed this book at 19/12/22

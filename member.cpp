@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <fstream>
 #include "member.h"
 using namespace std;
 
@@ -81,17 +82,17 @@ void undergraduate :: erase_e_books(string se_book){
 ////////////graduate/////////
 graduate :: graduate(){
 	book_num = 0;
-	//book_name = "";
+	book_name.push_back("");
 	ban_day = "";
-	//day = "";
+	day.push_back("");
 	ban = false;
 }
 
 graduate :: graduate(string sname){
 	book_num = 0;
-	//book_name = "";
+	//book_name.push_back("");
 	ban_day = "";
-	//day = "";
+	//day.push_back("");
 	ban = false;
 	set_name(sname);	
 }
@@ -128,20 +129,20 @@ void graduate :: set_day(string sday){
 	day.push_back(sday);
 }
 void graduate :: erase_day(string sbook_name){
-	int temp;
-	for(int i = 0; i < book_num ; i++){
+	for(int i = 0; i < day.size() ; i++){
 		if(book_name.at(i) == sbook_name){
-			 day.erase(book_name.begin()+i);
+			day.erase(day.begin()+i);
+			break;
 		}
-	}	
+	}
 }
 string graduate :: get_day(string sbook_name){
-	for(int i = 0; i < book_name.size() ; i++){
+	for(int i = 0; i < day.size() ; i++){
 		if(book_name.at(i) == sbook_name){
 			return day.at(i);
 		}
 	}
-	return 0;
+	return "";
 }
 string graduate :: get_dayi(int i){
 	return day.at(i);
@@ -220,20 +221,20 @@ void faculty :: set_day(string sday){
 	day.push_back(sday);
 }
 void faculty :: erase_day(string sbook_name){
-	int temp;
-	for(int i = 0; i < book_name.size() ; i++){
+	for(int i = 0; i < day.size() ; i++){
 		if(book_name.at(i) == sbook_name){
-			 day.erase(book_name.begin()+i);
+			day.erase(day.begin()+i);
+			break;
 		}
-	}	
+	}
 }
 string faculty :: get_day(string sbook_name){
-	for(int i = 0; i < book_num ; i++){
+	for(int i = 0; i < day.size() ; i++){
 		if(book_name.at(i) == sbook_name){
 			return day.at(i);
 		}
 	}
-	return 0;
+	return "";
 }
 string faculty :: get_dayi(int i){
 	return day.at(i);

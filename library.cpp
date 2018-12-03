@@ -72,7 +72,6 @@ void library :: input(){
 		i_dat >> operation;
 		i_dat >> member_type;
 		i_dat >> member_name;
-
 		tempi = set_data(date, resource_type, resource_name, operation, member_type, member_name); // set_data를 이용해서 return_code값을 받는다.
 		output(cnt,tempi); // output을 이용해서 return_code에 따라 output file 생성
 		cnt++;
@@ -86,7 +85,6 @@ int library :: set_data(string date, string resource_type, string resource_name,
 	string magazine_day;
 	int i = 0;
 	state = 0;
-	cout << date << "\t"<< resource_type << endl;
 	if(resource_type == "Magazine"){ // 유효한 magazine을 추가 
 		int k = 0;
 		while(resource_name.at(k) != ']'){ // 날짜 분리
@@ -124,13 +122,14 @@ int library :: set_data(string date, string resource_type, string resource_name,
 	if(state == 0){
 		return 1;
 	}
+	
 	if(operation == "B"){ // borrow case
 		state = 0;
 		if(member_type == "Undergraduate"){
 			for(auto a : undergraduates){
 				if(a.get_name() == member_name && resource_type != "E-book"){
 					if(a.get_book_num() > 0){
-						return 2; // 학부생은 1권만 빌릴 수 있으므로 book_num이 1이면 빌릴 수 없다.
+						return 2 + 100; // 학부생은 1권만 빌릴 수 있으므로 book_num이 1이면 빌릴 수 없다.
 					}
 				}
 			}
@@ -146,15 +145,13 @@ int library :: set_data(string date, string resource_type, string resource_name,
 			for(auto a : graduates){
 				if(a.get_name() == member_name && resource_type != "E-book"){
 					if(a.get_book_num() > 4){
-						return 2; // 대학원생은 4권만 빌릴 수 있으므로 book_num이 5이면 빌릴 수 없다.
+						return 2 + 500; // 대학원생은 4권만 빌릴 수 있으므로 book_num이 5이면 빌릴 수 없다.
 					}
 				}
 			}
 			for(auto a: graduates){
 				if(a.get_name() == member_name){
-					
 					if(a.search_book_name(resource_name)){
-						cout <<  a.get_day(resource_name) << endl;
 						return 4 + day2int(a.get_day(resource_name))*100; // 이미 빌린 책인 case
 					}
 				}
@@ -164,7 +161,7 @@ int library :: set_data(string date, string resource_type, string resource_name,
 			for(auto a : faculties){
 				if(a.get_name() == member_name && resource_type != "E-book"){
 					if(a.get_book_num() > 9){
-						return 2; // 교직원은 10권만 빌릴 수 있으므로 book_num이 10이면 빌릴 수 없다.
+						return 2 + 1000; // 교직원은 10권만 빌릴 수 있으므로 book_num이 10이면 빌릴 수 없다.
 					}
 				}
 			}
@@ -265,13 +262,6 @@ int library :: set_data(string date, string resource_type, string resource_name,
 				if(a.get_name() == member_name){
 					if(a.get_book_num() == 1){
 						if(day2int(a.get_day())+13 < day2int(date)){ // 연체되어 대여 금지 시켜야 하는 경우
-							a.set_ban_day(int2day(2*day2int(date) - day2int(a.get_day())-13)); // ban_day등의 정보를 저장한다.
-							a.set_day("");
-							a.set_ban(true);
-							a.set_book_name("");
-							a.set_book_num(a.get_book_num()-1);
-							undergraduates.push_back(a);
-							undergraduates.erase(undergraduates.begin()+i);
 							return 16; 
 						}	
 					}
@@ -283,13 +273,6 @@ int library :: set_data(string date, string resource_type, string resource_name,
 				if(a.get_name() == member_name){
 					for(int l = 0; l < a.get_book_num(); l++){
 						if(day2int(a.get_dayi(l))+29 < day2int(date)){ // 연체되어 대여 금지 시켜야 하는 경우
-							a.set_ban_day(int2day(2*day2int(date) - day2int(a.get_dayi(l))-29)); // ban_day등의 정보를 저장한다.
-							a.set_day("");
-							a.set_ban(true);
-							a.set_book_name("");
-							a.set_book_num(a.get_book_num()-1);
-							graduates.push_back(a);
-							graduates.erase(graduates.begin()+i);
 							return 16; 
 						}
 					}
@@ -302,13 +285,6 @@ int library :: set_data(string date, string resource_type, string resource_name,
 				if(a.get_name() == member_name){
 					for(int l = 0; l < a.get_book_num(); l++){
 						if(day2int(a.get_dayi(l))+29 < day2int(date)){ // 연체되어 대여 금지 시켜야 하는 경우
-							a.set_ban_day(int2day(2*day2int(date) - day2int(a.get_dayi(l))-29)); // ban_day등의 정보를 저장한다.
-							a.set_day("");
-							a.set_ban(true);
-							a.set_book_name("");
-							a.set_book_num(a.get_book_num()-1);
-							faculties.push_back(a);
-							faculties.erase(faculties.begin()+i);
 							return 16; 
 						}
 					}
@@ -316,7 +292,6 @@ int library :: set_data(string date, string resource_type, string resource_name,
 				}
 			}
 		}
-		
 		// 이외의 경우로 빌릴 수 있는 경우
 		if(member_type == "Undergraduate"){
 			i = 0;
@@ -433,14 +408,12 @@ int library :: set_data(string date, string resource_type, string resource_name,
 		else if(resource_type == "Magazine"){
 			for(auto a : magazines){
 				if(a.get_name()==resource_name){ // 해당 resource에 대해서 정보를 입력한다.
-					a.set_member(member_name);
-					a.set_day_borrow(date);
-					if(member_type == "Undergraduate") a.set_day_return(int2day(day2int(date)+13));
-					else a.set_day_return(int2day(day2int(date)+29));
-					magazines.push_back(a);
-					magazines.erase(magazines.begin()+i);
+					magazine x(member_name);
+					x.set_day_borrow(date);
+					if(member_type == "Undergraduate") x.set_day_return(int2day(day2int(date)+13));
+					else x.set_day_return(int2day(day2int(date)+29));
+					magazines.push_back(x);
 				}
-				i++;
 			}
 		}
 		else if(resource_type == "E-book"){
@@ -651,9 +624,9 @@ int library :: set_data(string date, string resource_type, string resource_name,
 			}
 		}
 		else if(member_type == "Graduate"){
+			
 			for (auto a : graduates) {
 				if(a.get_name() == member_name) {
-					cout << resource_name << "  " << member_name << endl;
 					a.erase_day(resource_name);
 					a.set_ban(false);
 					a.set_ban_day("");
@@ -748,7 +721,7 @@ void library :: output(int operation_num, int return_code){ // return code와 �
 	string temp;
 	if(return_code == 0) out << operation_num << "\t" << return_code << "\tSuccess." << endl;
 	else if(return_code == 1) out << operation_num << "\t" << return_code << "\tNon exist resource." << endl;
-	else if(return_code == 2) out << operation_num << "\t" << return_code << "\tExceeds your possible number of borrow. Possible # of borrows: 1" << endl;
+	else if(return_code%100 == 2) out << operation_num << "\t" << return_code%100 << "\tExceeds your possible number of borrow. Possible # of borrows: " << return_code/100 << endl;
 	else if(return_code == 3) out << operation_num << "\t" << return_code << "\tYou did not borrow this book."<< endl;
 	else if(return_code%100 == 4) out << operation_num << "\t" << return_code%100 << "\tYou already borrow this book at " <<int2day(return_code/100)<< endl; // %10을 통해 1만을 return code로 취하고 출력은 /10을 이용해서 날짜를 얻는다.
 	else if(return_code%100 == 5) out << operation_num << "\t" << return_code%100 << "\tOther member already borrowed this book. This book will be returned at " << int2day(return_code/100) << endl;
