@@ -14,10 +14,10 @@ Op_#	Return_code	Description
 13	0	Success.
 14	3	You did not borrow this book.
 15	0	Success.
-16	4	You already borrow this book at 19/06/13
-17	4	You already borrow this book at 19/06/13
-18	4	You already borrow this book at 19/06/13
-19	4	You already borrow this book at 19/06/13
+16	4	You already borrowed this book at 19/06/13
+17	4	You already borrowed this book at 19/06/13
+18	0	Success.
+19	4	You already borrowed this book at 19/07/13
 20	16	Previously borrowed books are overdue, so borrow is limited.
 21	16	Previously borrowed books are overdue, so borrow is limited.
 22	16	Previously borrowed books are overdue, so borrow is limited.
@@ -42,8 +42,8 @@ Op_#	Return_code	Description
 41	3	You did not borrow this book.
 42	3	You did not borrow this book.
 43	3	You did not borrow this book.
-44	16	Previously borrowed books are overdue, so borrow is limited.
-45	16	Previously borrowed books are overdue, so borrow is limited.
+44	15	Exceeds your storage capacity.
+45	15	Exceeds your storage capacity.
 46	0	Success.
 47	5	Other member already borrowed this book. This book will be returned at 19/04/19
 48	0	Success.
@@ -58,4 +58,4 @@ Op_#	Return_code	Description
 57	0	Success.
 58	2	Exceeds your possible number of borrow. Possible # of borrows: 5
 59	0	Success.
-60	4	You already borrow this book at 19/12/22
+60	4	You already borrowed this book at 19/12/22

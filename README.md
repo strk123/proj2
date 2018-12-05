@@ -40,3 +40,8 @@ resource와 member에서 필요한 변수들을 class로 만들어주고 이를 
 - member
 	- member class가 있고 undergraduate가 member를 상속받아 사용하게 된다. 이 과제에서는 type이 모두 undergraduate이기 때문에 undergraduate만 생성해주었다.
 	
+	
+## 수정할 점
+- 19) 30일이 지나면 E-book 자동반납
+- 35) 만료된 magazine 반납의 경우, return code 7이 되도록 수정
+- 45) 30일 지나면 E-book 자동반납

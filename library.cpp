@@ -85,6 +85,78 @@ int library :: set_data(string date, string resource_type, string resource_name,
 	string magazine_day;
 	int i = 0;
 	state = 0;
+	int capacity2 = 0;
+	if(resource_type == "E-book"){ // E-book의 자동반납
+		if(member_type == "Undergraduate"){
+			for (auto a : undergraduates) {
+				if(a.get_name() == member_name) {
+					if(a.get_book_name() == resource_name && day2int(a.get_day()) + 13 < day2int(date)){
+						a.set_day("");
+						a.set_ban(false);
+						a.set_ban_day("");
+						a.set_book_name("");
+						for(auto b : e_books){
+							if(b.get_name() == resource_name){
+								capacity2 = b.get_size();
+							}
+						}
+						capacity2 = a.get_capacity() - capacity2;
+						a.set_capacity(capacity2);		
+						undergraduates.push_back(a);
+						undergraduates.erase(undergraduates.begin() + i);						
+					}
+				}
+				i++;
+			}
+		}
+		else if(member_type == "Graduate"){
+			cout << date << "\t" << member_name << endl;
+			for (auto a : graduates) {
+				if(a.get_name() == member_name) {
+					if(a.search_book_name(resource_name) && day2int(a.get_day(resource_name)) + 29 < day2int(date)){
+						cout << "here" << endl;
+						a.erase_day(resource_name);
+						a.set_ban(false);
+						a.set_ban_day("");
+						a.erase_book_name(resource_name);
+						for(auto b : e_books){
+							if(b.get_name() == resource_name){
+								capacity2 = b.get_size();
+							}
+						}
+						capacity2 = a.get_capacity() - capacity2;
+						a.set_capacity(capacity2);		
+						graduates.push_back(a);
+						graduates.erase(graduates.begin() + i);						
+					}
+				}
+				i++;
+			}
+		}
+		else if(member_type == "Faculty"){
+			for (auto a : faculties) {
+				if(a.get_name() == member_name) {
+					if(a.search_book_name(resource_name) && day2int(a.get_day(resource_name)) + 29 < day2int(date)){
+						a.erase_day(resource_name);
+						a.set_ban(false);
+						a.set_ban_day("");
+						a.erase_book_name(resource_name);
+						for(auto b : e_books){
+							if(b.get_name() == resource_name){
+								capacity2 = b.get_size();
+							}
+						}
+						capacity2 = a.get_capacity() - capacity2;
+						a.set_capacity(capacity2);		
+						faculties.push_back(a);
+						faculties.erase(faculties.begin() + i);						
+					}
+				}
+				i++;
+			}
+		}
+	}
+	i = 0;
 	if(resource_type == "Magazine"){ // 유효한 magazine을 추가 
 		int k = 0;
 		while(resource_name.at(k) != ']'){ // 날짜 분리
@@ -723,7 +795,7 @@ void library :: output(int operation_num, int return_code){ // return code와 �
 	else if(return_code == 1) out << operation_num << "\t" << return_code << "\tNon exist resource." << endl;
 	else if(return_code%100 == 2) out << operation_num << "\t" << return_code%100 << "\tExceeds your possible number of borrow. Possible # of borrows: " << return_code/100 << endl;
 	else if(return_code == 3) out << operation_num << "\t" << return_code << "\tYou did not borrow this book."<< endl;
-	else if(return_code%100 == 4) out << operation_num << "\t" << return_code%100 << "\tYou already borrow this book at " <<int2day(return_code/100)<< endl; // %10을 통해 1만을 return code로 취하고 출력은 /10을 이용해서 날짜를 얻는다.
+	else if(return_code%100 == 4) out << operation_num << "\t" << return_code%100 << "\tYou already borrowed this book at " <<int2day(return_code/100)<< endl; // %10을 통해 1만을 return code로 취하고 출력은 /10을 이용해서 날짜를 얻는다.
 	else if(return_code%100 == 5) out << operation_num << "\t" << return_code%100 << "\tOther member already borrowed this book. This book will be returned at " << int2day(return_code/100) << endl;
 	else if(return_code%100 == 6) out << operation_num << "\t" << return_code%100 << "\tRestricted member until " << int2day(return_code/100) << endl;
 	else if(return_code%100 == 7) out << operation_num << "\t" << return_code%100 << "\tDelayed return. You'll be restricted until " << int2day(return_code/100) << endl;
