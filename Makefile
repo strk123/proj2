@@ -1,6 +1,6 @@
 # Makefile
-proj1 : main.o library.o member.o resource.o
-	g++ -std=c++11 -o proj main.o library.o member.o resource.o
+proj1 : main.o library.o member.o resource.o space.o
+	g++ -std=c++11 -o proj main.o library.o member.o resource.o space.o
 
 main.o : main.cpp
 	g++ -std=c++11 -c main.cpp
@@ -13,5 +13,9 @@ member.o : member.cpp
 
 resource.o : resource.cpp
 	g++ -std=c++11 -c resource.cpp
+	
+space.o : space.cpp
+	g++ -std=c++11 -c space.cpp
+	
 clean :
-	rm proj main.o library.o member.o resource.o
+	rm main.o library.o member.o resource.o space.o proj

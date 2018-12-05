@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 #include "library.h"
 using namespace std;
 
@@ -360,7 +361,6 @@ int library :: set_data(string date, string resource_type, string resource_name,
 		if(member_type == "Undergraduate"){
 			for(auto a : undergraduates){
 				if(a.get_name() == member_name && resource_type != "E-book"){
-					cout << date << "\t" << member_name << "\t" << a.get_book_num() << endl;
 					if(a.get_book_num() > 0){
 						return 2 + 100; // 학부생은 1권만 빌릴 수 있으므로 book_num이 1이면 빌릴 수 없다.
 					}
