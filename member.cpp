@@ -16,17 +16,17 @@ string member :: get_name(){
 ////////////undergraduate/////////
 undergraduate :: undergraduate(){
 	book_num = 0;
-	book_name = "";
+	book_name.push_back("");
 	ban_day = "";
-	day = "";
+	day.push_back("");
 	ban = false;
 }
 
 undergraduate :: undergraduate(string sname){
 	book_num = 0;
-	book_name = "";
+	//book_name.push_back("");
 	ban_day = "";
-	day = "";
+	//day.push_back("");
 	ban = false;
 	set_name(sname);	
 }
@@ -37,10 +37,21 @@ int undergraduate :: get_book_num(){
 	return book_num;
 }
 void undergraduate :: set_book_name(string sbook_name){
-	book_name = sbook_name;
+	book_name.push_back(sbook_name);
 }
-string undergraduate :: get_book_name(){
-	return book_name;
+void undergraduate :: erase_book_name(string sbook_name){
+	for(int i = 0; i < book_name.size() ; i++){
+		if(book_name.at(i) == sbook_name){
+			book_name.erase(book_name.begin()+i);
+			break;
+		}
+	}
+}
+bool undergraduate :: search_book_name(string sbook_name){
+	for(auto a : book_name){
+		if(a == sbook_name) return true;
+	}
+	return false;
 }
 void undergraduate :: set_ban_day(string sban_day){
 	ban_day = sban_day;
@@ -49,10 +60,26 @@ string undergraduate :: get_ban_day(){
 	return ban_day;
 }
 void undergraduate :: set_day(string sday){
-	day = sday;
+	day.push_back(sday);
 }
-string undergraduate :: get_day(){
-	return day;
+void undergraduate :: erase_day(string sbook_name){
+	for(int i = 0; i < day.size() ; i++){
+		if(book_name.at(i) == sbook_name){
+			day.erase(day.begin()+i);
+			break;
+		}
+	}
+}
+string undergraduate :: get_day(string sbook_name){
+	for(int i = 0; i < day.size() ; i++){
+		if(book_name.at(i) == sbook_name){
+			return day.at(i);
+		}
+	}
+	return "";
+}
+string undergraduate :: get_dayi(int i){
+	return day.at(i);
 }
 void undergraduate :: set_capacity(int scapacity){
 	capacity = scapacity;

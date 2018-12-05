@@ -90,11 +90,11 @@ int library :: set_data(string date, string resource_type, string resource_name,
 		if(member_type == "Undergraduate"){
 			for (auto a : undergraduates) {
 				if(a.get_name() == member_name) {
-					if(a.get_book_name() == resource_name && day2int(a.get_day()) + 13 < day2int(date)){
-						a.set_day("");
+					if(a.search_book_name(resource_name) && day2int(a.get_day(resource_name)) + 13 < day2int(date)){
+						a.erase_day(resource_name);
 						a.set_ban(false);
 						a.set_ban_day("");
-						a.set_book_name("");
+						a.erase_book_name(resource_name);
 						for(auto b : e_books){
 							if(b.get_name() == resource_name){
 								capacity2 = b.get_size();
@@ -103,7 +103,7 @@ int library :: set_data(string date, string resource_type, string resource_name,
 						capacity2 = a.get_capacity() - capacity2;
 						a.set_capacity(capacity2);		
 						undergraduates.push_back(a);
-						undergraduates.erase(undergraduates.begin() + i);						
+						undergraduates.erase(undergraduates.begin() + i);
 					}
 				}
 				i++;
@@ -125,7 +125,7 @@ int library :: set_data(string date, string resource_type, string resource_name,
 						capacity2 = a.get_capacity() - capacity2;
 						a.set_capacity(capacity2);		
 						graduates.push_back(a);
-						graduates.erase(graduates.begin() + i);						
+						graduates.erase(graduates.begin() + i);
 					}
 				}
 				i++;
@@ -198,6 +198,7 @@ int library :: set_data(string date, string resource_type, string resource_name,
 		if(member_type == "Undergraduate"){
 			for(auto a : undergraduates){
 				if(a.get_name() == member_name && resource_type != "E-book"){
+					cout << date << "\t" << member_name << "\t" << a.get_book_num() << endl;
 					if(a.get_book_num() > 0){
 						return 2 + 100; // 학부생은 1권만 빌릴 수 있으므로 book_num이 1이면 빌릴 수 없다.
 					}
@@ -205,8 +206,8 @@ int library :: set_data(string date, string resource_type, string resource_name,
 			}
 			for(auto a: undergraduates){
 				if(a.get_name() == member_name){
-					if(a.get_book_name() == resource_name){
-						return 4 + day2int(a.get_day())*10; // 이미 빌린 책인 case
+					if(a.search_book_name(resource_name)){
+						return 4 + day2int(a.get_day(resource_name))*100; // 이미 빌린 책인 case
 					}
 				}
 			}	
@@ -215,7 +216,7 @@ int library :: set_data(string date, string resource_type, string resource_name,
 			for(auto a : graduates){
 				if(a.get_name() == member_name && resource_type != "E-book"){
 					if(a.get_book_num() > 4){
-						return 2 + 500; // 대학원생은 4권만 빌릴 수 있으므로 book_num이 5이면 빌릴 수 없다.
+						return 2 + 500; // 대학원생은 5권만 빌릴 수 있으므로 book_num이 5이면 빌릴 수 없다.
 					}
 				}
 			}
@@ -330,11 +331,12 @@ int library :: set_data(string date, string resource_type, string resource_name,
 		if(member_type == "Undergraduate"){
 			for(auto a : undergraduates){
 				if(a.get_name() == member_name){
-					if(a.get_book_num() == 1){
-						if(day2int(a.get_day())+13 < day2int(date)){ // 연체되어 대여 금지 시켜야 하는 경우
+					for(int l = 0; l < a.get_book_num(); l++){
+						if(day2int(a.get_dayi(l))+13 < day2int(date)){ // 연체되어 대여 금지 시켜야 하는 경우
 							return 16; 
-						}	
+						}
 					}
+					
 				}
 			}
 		}
@@ -509,7 +511,7 @@ int library :: set_data(string date, string resource_type, string resource_name,
 			for(auto a : undergraduates){
 				if(a.get_name() == member_name){
 					state = 1;
-					if(a.get_book_name() != resource_name){ // 빌려간 책이 아닌 경우
+					if(!a.search_book_name(resource_name)){ // 빌려간 책이 아닌 경우
 						return 3;
 					}
 				}
@@ -543,8 +545,8 @@ int library :: set_data(string date, string resource_type, string resource_name,
 			if(member_type == "Undergraduate"){
 				for(auto a : undergraduates){
 					if(a.get_name() == member_name){
-						if(day2int(a.get_day())+13 < day2int(date)){ // 연체되어 대여 금지 시켜야 하는 경우
-							a.set_ban_day(int2day(2*day2int(date) - day2int(a.get_day())-13)); // ban_day등의 정보를 저장한다.
+						if(day2int(a.get_day(resource_name))+13 < day2int(date)){ // 연체되어 대여 금지 시켜야 하는 경우
+							a.set_ban_day(int2day(2*day2int(date) - day2int(a.get_day(resource_name))-13)); // ban_day등의 정보를 저장한다.
 							a.set_day("");
 							a.set_ban(true);
 							a.set_book_name("");
@@ -579,7 +581,7 @@ int library :: set_data(string date, string resource_type, string resource_name,
 							return 7 + day2int(a.get_ban_day())*100;
 						}
 					}
-				}	
+				}
 			}
 			else if(member_type == "Graduate"){
 				for(auto a : graduates){
@@ -673,10 +675,10 @@ int library :: set_data(string date, string resource_type, string resource_name,
 		if(member_type == "Undergraduate"){
 			for (auto a : undergraduates) {
 				if(a.get_name() == member_name) {
-					a.set_day("");
+					a.erase_day(resource_name);
 					a.set_ban(false);
 					a.set_ban_day("");
-					a.set_book_name("");
+					a.erase_book_name(resource_name);
 					if(resource_type != "E-book") a.set_book_num(a.get_book_num()-1);
 					else{
 						for(auto b : e_books){
