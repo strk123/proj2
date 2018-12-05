@@ -157,7 +157,7 @@ int library :: set_data(string date, string resource_type, string resource_name,
 		}
 	}
 	i = 0;
-	if(resource_type == "Magazine"){ // 유효한 magazine을 추가 
+	if(operation == "B" && resource_type == "Magazine"){ // 유효한 magazine을 추가 
 		int k = 0;
 		while(resource_name.at(k) != ']'){ // 날짜 분리
 			if(resource_name.at(k)=='[') state = 1;
@@ -167,7 +167,7 @@ int library :: set_data(string date, string resource_type, string resource_name,
 			k++;
 		}
 		magazine_day = magazine_day + "/00";
-		if(day2int(date) - 360 < day2int(magazine_day)){
+		if(day2int(date) - 360 < day2int(magazine_day) && day2int(date)> day2int(magazine_day)){
 			magazine magazine_temp(resource_name);
 			magazines.push_back(magazine_temp);	
 		}

@@ -18,7 +18,7 @@ Op_#	Return_code	Description
 17	4	You already borrowed this book at 19/06/13
 18	0	Success.
 19	4	You already borrowed this book at 19/07/13
-20	16	Previously borrowed books are overdue, so borrow is limited.
+20	1	Non exist resource.
 21	16	Previously borrowed books are overdue, so borrow is limited.
 22	16	Previously borrowed books are overdue, so borrow is limited.
 23	16	Previously borrowed books are overdue, so borrow is limited.
@@ -32,7 +32,7 @@ Op_#	Return_code	Description
 31	16	Previously borrowed books are overdue, so borrow is limited.
 32	16	Previously borrowed books are overdue, so borrow is limited.
 33	1	Non exist resource.
-34	1	Non exist resource.
+34	7	Delayed return. You'll be restricted until 20/06/16
 35	1	Non exist resource.
 36	1	Non exist resource.
 37	1	Non exist resource.
@@ -42,8 +42,8 @@ Op_#	Return_code	Description
 41	3	You did not borrow this book.
 42	3	You did not borrow this book.
 43	3	You did not borrow this book.
-44	15	Exceeds your storage capacity.
-45	15	Exceeds your storage capacity.
+44	6	Restricted member until 20/06/16
+45	6	Restricted member until 20/06/16
 46	0	Success.
 47	5	Other member already borrowed this book. This book will be returned at 19/04/19
 48	0	Success.
