@@ -32,7 +32,7 @@ Op_#	Return_code	Description
 31	16	Previously borrowed books are overdue, so borrow is limited.
 32	16	Previously borrowed books are overdue, so borrow is limited.
 33	1	Non exist resource.
-34	7	Delayed return. You'll be restricted until 20/07/02
+34	7	Delayed return. You'll be restricted until 20/06/16
 35	1	Non exist resource.
 36	1	Non exist resource.
 37	1	Non exist resource.
