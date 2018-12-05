@@ -110,11 +110,9 @@ int library :: set_data(string date, string resource_type, string resource_name,
 			}
 		}
 		else if(member_type == "Graduate"){
-			cout << date << "\t" << member_name << endl;
 			for (auto a : graduates) {
 				if(a.get_name() == member_name) {
 					if(a.search_book_name(resource_name) && day2int(a.get_day(resource_name)) + 29 < day2int(date)){
-						cout << "here" << endl;
 						a.erase_day(resource_name);
 						a.set_ban(false);
 						a.set_ban_day("");
