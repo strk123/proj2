@@ -77,6 +77,8 @@ void library :: input(){
 	int datetemp=0;
 	string date, resource_type, resource_name, operation, member_type, member_name;
 	string sdate, space_type, space_number, soperation, smember_type, smember_name, number_of_member, time;
+	date = "99/99/99";
+	sdate = "9999/99/99/99";
 	i_dat.open("input.dat");
 	s_dat.open("space.dat");
 	o_dat.open("output.dat");
@@ -88,8 +90,7 @@ void library :: input(){
 	s_dat >> temp;
 	s_dat >> temp;
 	o_dat << "Op_#\tReturn_code\tDescription" << endl; // output file의 첫줄 생성
-s_dat >> sdate;
-	i_dat >> date;
+	if(!(s_dat >> sdate) && !(i_dat >> date)) return;
 	datetemp = sday2int(sdate);
 	while(true) { // intput data를 한줄씩 받아서 output 생성
 		if(day2int(date)>sday2int(sdate)){
@@ -214,6 +215,9 @@ s_dat >> sdate;
 					sdate = "9999/99/99/99";
 					sinput_state = 1;
 				}
+				if(date == "99/99/99"){
+					input_state = 1;
+				}
 			}
 
 		}
@@ -230,6 +234,9 @@ s_dat >> sdate;
 				if(!(i_dat >> date)){
 					input_state = 1;
 					date = "99/99/99";
+				}
+				if(sdate == "9999/99/99/99"){
+					sinput_state = 1;
 				}
 			}
 			
