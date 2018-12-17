@@ -376,4 +376,54 @@ then
 	cp input.bak input.dat
 	cp space.bak space.dat
 	rm output.dat input.bak space.bak
+elif [ $1 = "output" ]
+then
+	if [ $2 = "stat_table" ]
+	then
+		mkdir -p result/output
+		./proj
+		echo -e "Return_code\tNumber" > result/output/stat_table.dat
+		while read Op Return_code Description
+		do
+			case "$Return_code" in
+				-1)((N0++));;
+				0) ((N1++)) ;;
+				1) ((N2++));;
+				2) ((N3++));;
+				3) ((N4++));;
+				4) ((N5++));;
+				5) ((N6++));;
+				6) ((N7++));;
+				7) ((N8++));;
+				8) ((N9++));;
+				9) ((N10++));;
+				10) ((N11++));;
+				11) ((N12++));;
+				12) ((N13++));;
+				13) ((N14++));;
+				14) ((N15++));;
+				15) ((N16++));;
+				16) ((N17++));;
+			esac
+		done < output.dat
+		echo -e "-1\t$N0" >> result/output/stat_table.dat
+		echo -e "0\t$N1" >> result/output/stat_table.dat
+		echo -e "1\t$N2" >> result/output/stat_table.dat
+		echo -e "2\t$N3" >> result/output/stat_table.dat
+		echo -e "3\t$N4" >> result/output/stat_table.dat
+		echo -e "4\t$N5" >> result/output/stat_table.dat
+		echo -e "5\t$N6" >> result/output/stat_table.dat
+		echo -e "6\t$N7" >> result/output/stat_table.dat
+		echo -e "7\t$N8" >> result/output/stat_table.dat
+		echo -e "8\t$N9" >> result/output/stat_table.dat
+		echo -e "9\t$N10" >> result/output/stat_table.dat
+		echo -e "10\t$N11" >> result/output/stat_table.dat
+		echo -e "11\t$N12" >> result/output/stat_table.dat
+		echo -e "12\t$N13" >> result/output/stat_table.dat
+		echo -e "13\t$N14" >> result/output/stat_table.dat
+		echo -e "14\t$N15" >> result/output/stat_table.dat
+		echo -e "15\t$N16" >> result/output/stat_table.dat
+		echo -e "16\t$N17" >> result/output/stat_table.dat
+		rm output.dat
+	fi
 fi
