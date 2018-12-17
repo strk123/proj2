@@ -224,5 +224,156 @@ then
 	cp input.bak input.dat
 	cp space.bak space.dat
 	rm output.dat input.bak space.bak
-
+elif [ $1 = "space" ]
+then
+	mkdir -p result/space
+	cp input.dat input.bak
+	cp space.dat space.bak
+	rm input.dat space.dat
+	echo -e "Date[yy/mm/dd/hh]\tSpace_type\tSpace_number\tOperation\tMember_type\tMember_name\tNumber_of_member\tTime" > space.dat
+	if [ $2 = "date" ]
+	then
+		from_yy=`echo $3 | cut -d'/' -f1`
+		from_mm=`echo $3 | cut -d'/' -f2`
+		from_dd=`echo $3 | cut -d'/' -f3`
+		from_hh=`echo $3 | cut -d'/' -f4`
+		to_yy=`echo $4 | cut -d'/' -f1`
+		to_mm=`echo $4 | cut -d'/' -f2`
+		to_dd=`echo $4 | cut -d'/' -f3`
+		to_hh=`echo $4 | cut -d'/' -f4`
+		((from=$((10#${from_yy})) * 360 * 24 + $((10#${from_mm})) * 30 * 24 + $((10#${from_dd})) * 24 + $((10#${from_hh}))))
+		((to=$((10#${to_yy})) * 360 * 24 + $((10#${to_mm})) * 30 * 24 + $((10#${to_dd})) * 24 + $((10#${to_hh}))))
+		while read Date Space_type Space_number Operation Member_type Member_name Number_of_member Time
+		do
+			if [ $Date != "Date[yy/mm/dd/hh]" ]
+			then
+				date_yy=`echo $Date | cut -d'/' -f1`
+				date_mm=`echo $Date | cut -d'/' -f2`
+				date_dd=`echo $Date | cut -d'/' -f3`
+				date_hh=`echo $Date | cut -d'/' -f4`
+				((date=$((10#${date_yy})) * 360 * 24 + $((10#${date_mm})) * 30 * 24 + $((10#${date_dd})) * 24 + $((10#${date_hh}))))
+				if [ $from -le $date -a $date -le $to ]
+				then
+					echo -e "$Date\t$Space_type\t$Space_number\t$Operation\t$Member_type\t$Member_name\t$Number_of_member\t$Time" >> space.dat
+				fi
+			fi
+		done < space.bak
+		./proj
+		cp output.dat result/space/date.dat
+	elif [ $2 = "studyroom" ]
+	then
+		while read Date Space_type Space_number Operation Member_type Member_name Number_of_member Time
+		do
+		if [ $Space_type = "StudyRoom" ]
+		then
+			if [ $Space_number = $3 -o $3 = "all" ]
+			then
+				echo -e "$Date\t$Space_type\t$Space_number\t$Operation\t$Member_type\t$Member_name\t$Number_of_member\t$Time" >> space.dat
+			fi
+		fi
+		done < space.bak
+		./proj
+		cp output.dat result/space/studyroom.dat
+	elif [ $2 = "seat" ]
+	then
+		while read Date Space_type Space_number Operation Member_type Member_name Number_of_member Time
+		do
+		if [ $Space_type = "Seat" ]
+		then
+			if [ $Space_number = $3 -o $3 = "all" ]
+			then
+				echo -e "$Date\t$Space_type\t$Space_number\t$Operation\t$Member_type\t$Member_name\t$Number_of_member\t$Time" >> space.dat
+			fi
+		fi
+		done < space.bak
+		./proj
+		cp output.dat result/space/seat.dat
+	elif [ $2 = "undergraduate" ]
+	then
+		while read Date Space_type Space_number Operation Member_type Member_name Number_of_member Time
+		do
+		if [ $Member_type = "Undergraduate" ]
+		then
+			echo -e "$Date\t$Space_type\t$Space_number\t$Operation\t$Member_type\t$Member_name\t$Number_of_member\t$Time" >> space.dat
+		fi
+		done < space.bak
+		./proj
+		cp output.dat result/space/undergraduate.dat
+	elif [ $2 = "graduate" ]
+	then
+		while read Date Space_type Space_number Operation Member_type Member_name Number_of_member Time
+		do
+		if [ $Member_type = "Graduate" ]
+		then
+			echo -e "$Date\t$Space_type\t$Space_number\t$Operation\t$Member_type\t$Member_name\t$Number_of_member\t$Time" >> space.dat
+		fi
+		done < space.bak
+		./proj
+		cp output.dat result/space/graduate.dat
+	elif [ $2 = "faculty" ]
+	then
+		while read Date Space_type Space_number Operation Member_type Member_name Number_of_member Time
+		do
+		if [ $Member_type = "Faculty" ]
+		then
+			echo -e "$Date\t$Space_type\t$Space_number\t$Operation\t$Member_type\t$Member_name\t$Number_of_member\t$Time" >> space.dat
+		fi
+		done < space.bak
+		./proj
+		cp output.dat result/space/faculty.dat
+	elif [ $2 = "all" ]
+	then
+		while read Date Space_type Space_number Operation Member_type Member_name Number_of_member Time
+		do
+		if [ $Space_type = "StudyRoom" ]
+		then
+			echo -e "$Date\t$Space_type\t$Space_number\t$Operation\t$Member_type\t$Member_name\t$Number_of_member\t$Time" >> space.dat
+		fi
+		done < space.bak
+		./proj
+		cp output.dat result/space/studyroom.dat
+		echo -e "Date[yy/mm/dd/hh]\tSpace_type\tSpace_number\tOperation\tMember_type\tMember_name\tNumber_of_member\tTime" > space.dat
+		while read Date Space_type Space_number Operation Member_type Member_name Number_of_member Time
+		do
+		if [ $Space_type = "Seat" ]
+		then
+			echo -e "$Date\t$Space_type\t$Space_number\t$Operation\t$Member_type\t$Member_name\t$Number_of_member\t$Time" >> space.dat
+		fi
+		done < space.bak
+		./proj
+		cp output.dat result/space/seat.dat
+		echo -e "Date[yy/mm/dd/hh]\tSpace_type\tSpace_number\tOperation\tMember_type\tMember_name\tNumber_of_member\tTime" > space.dat
+		while read Date Space_type Space_number Operation Member_type Member_name Number_of_member Time
+		do
+		if [ $Member_type = "Undergraduate" ]
+		then
+			echo -e "$Date\t$Space_type\t$Space_number\t$Operation\t$Member_type\t$Member_name\t$Number_of_member\t$Time" >> space.dat
+		fi
+		done < space.bak
+		./proj
+		cp output.dat result/space/undergraduate.dat
+		echo -e "Date[yy/mm/dd/hh]\tSpace_type\tSpace_number\tOperation\tMember_type\tMember_name\tNumber_of_member\tTime" > space.dat
+		while read Date Space_type Space_number Operation Member_type Member_name Number_of_member Time
+		do
+		if [ $Member_type = "Graduate" ]
+		then
+			echo -e "$Date\t$Space_type\t$Space_number\t$Operation\t$Member_type\t$Member_name\t$Number_of_member\t$Time" >> space.dat
+		fi
+		done < space.bak
+		./proj
+		cp output.dat result/space/graduate.dat
+		echo -e "Date[yy/mm/dd/hh]\tSpace_type\tSpace_number\tOperation\tMember_type\tMember_name\tNumber_of_member\tTime" > space.dat
+		while read Date Space_type Space_number Operation Member_type Member_name Number_of_member Time
+		do
+		if [ $Member_type = "Faculty" ]
+		then
+			echo -e "$Date\t$Space_type\t$Space_number\t$Operation\t$Member_type\t$Member_name\t$Number_of_member\t$Time" >> space.dat
+		fi
+		done < space.bak
+		./proj
+		cp output.dat result/space/faculty.dat
+	fi
+	cp input.bak input.dat
+	cp space.bak space.dat
+	rm output.dat input.bak space.bak
 fi
