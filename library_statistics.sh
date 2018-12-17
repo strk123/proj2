@@ -93,6 +93,133 @@ then
 		done < input.bak
 		./proj
 		cp output.dat result/input/date.dat
+	elif [ $2 = "book" ]
+	then
+		while read Date Resource_type Resource_name Operation Member_type Member_name
+		do
+		if [ $Resource_type = "Book" ]
+		then
+			echo -e "$Date\t$Resource_type\t$Resource_name\t$Operation\t$Member_type\t$Member_name" >> input.dat
+		fi
+		done < input.bak
+		./proj
+		cp output.dat result/input/book.dat
+	elif [ $2 = "e-book" ]
+	then
+		while read Date Resource_type Resource_name Operation Member_type Member_name
+		do
+		if [ $Resource_type = "E-book" ]
+		then
+			echo -e "$Date\t$Resource_type\t$Resource_name\t$Operation\t$Member_type\t$Member_name" >> input.dat
+		fi
+		done < input.bak
+		./proj
+		cp output.dat result/input/e-book.dat
+	elif [ $2 = "magazine" ]
+	then
+		while read Date Resource_type Resource_name Operation Member_type Member_name
+		do
+		if [ $Resource_type = "Magazine" ]
+		then
+			echo -e "$Date\t$Resource_type\t$Resource_name\t$Operation\t$Member_type\t$Member_name" >> input.dat
+		fi
+		done < input.bak
+		./proj
+		cp output.dat result/input/magazine.dat
+	elif [ $2 = "undergraduate" ]
+	then
+		while read Date Resource_type Resource_name Operation Member_type Member_name
+		do
+		if [ $Member_type = "Undergraduate" ]
+		then
+			echo -e "$Date\t$Resource_type\t$Resource_name\t$Operation\t$Member_type\t$Member_name" >> input.dat
+		fi
+		done < input.bak
+		./proj
+		cp output.dat result/input/undergraduate.dat
+	elif [ $2 = "graduate" ]
+	then
+		while read Date Resource_type Resource_name Operation Member_type Member_name
+		do
+		if [ $Member_type = "Graduate" ]
+		then
+			echo -e "$Date\t$Resource_type\t$Resource_name\t$Operation\t$Member_type\t$Member_name" >> input.dat
+		fi
+		done < input.bak
+		./proj
+		cp output.dat result/input/graduate.dat
+	elif [ $2 = "faculty" ]
+	then
+		while read Date Resource_type Resource_name Operation Member_type Member_name
+		do
+		if [ $Member_type = "Faculty" ]
+		then
+			echo -e "$Date\t$Resource_type\t$Resource_name\t$Operation\t$Member_type\t$Member_name" >> input.dat
+		fi
+		done < input.bak
+		./proj
+		cp output.dat result/input/faculty.dat
+	elif [ $2 = "all" ]
+	then
+		while read Date Resource_type Resource_name Operation Member_type Member_name
+		do
+		if [ $Resource_type = "Book" ]
+		then
+			echo -e "$Date\t$Resource_type\t$Resource_name\t$Operation\t$Member_type\t$Member_name" >> input.dat
+		fi
+		done < input.bak
+		./proj
+		cp output.dat result/input/book.dat
+		echo -e "Date[yy/mm/dd]\tResource_type\tResource_name\tOperation\tMember_type\tMember_name" > input.dat
+		while read Date Resource_type Resource_name Operation Member_type Member_name
+		do
+		if [ $Resource_type = "E-book" ]
+		then
+			echo -e "$Date\t$Resource_type\t$Resource_name\t$Operation\t$Member_type\t$Member_name" >> input.dat
+		fi
+		done < input.bak
+		./proj
+		cp output.dat result/input/e-book.dat
+		echo -e "Date[yy/mm/dd]\tResource_type\tResource_name\tOperation\tMember_type\tMember_name" > input.dat
+				while read Date Resource_type Resource_name Operation Member_type Member_name
+		do
+		if [ $Resource_type = "Magazine" ]
+		then
+			echo -e "$Date\t$Resource_type\t$Resource_name\t$Operation\t$Member_type\t$Member_name" >> input.dat
+		fi
+		done < input.bak
+		./proj
+		cp output.dat result/input/magazine.dat
+		echo -e "Date[yy/mm/dd]\tResource_type\tResource_name\tOperation\tMember_type\tMember_name" > input.dat
+				while read Date Resource_type Resource_name Operation Member_type Member_name
+		do
+		if [ $Member_type = "Undergraduate" ]
+		then
+			echo -e "$Date\t$Resource_type\t$Resource_name\t$Operation\t$Member_type\t$Member_name" >> input.dat
+		fi
+		done < input.bak
+		./proj
+		cp output.dat result/input/undergraduate.dat
+		echo -e "Date[yy/mm/dd]\tResource_type\tResource_name\tOperation\tMember_type\tMember_name" > input.dat
+		while read Date Resource_type Resource_name Operation Member_type Member_name
+		do
+		if [ $Member_type = "Graduate" ]
+		then
+			echo -e "$Date\t$Resource_type\t$Resource_name\t$Operation\t$Member_type\t$Member_name" >> input.dat
+		fi
+		done < input.bak
+		./proj
+		cp output.dat result/input/graduate.dat
+		echo -e "Date[yy/mm/dd]\tResource_type\tResource_name\tOperation\tMember_type\tMember_name" > input.dat
+		while read Date Resource_type Resource_name Operation Member_type Member_name
+		do
+		if [ $Member_type = "Faculty" ]
+		then
+			echo -e "$Date\t$Resource_type\t$Resource_name\t$Operation\t$Member_type\t$Member_name" >> input.dat
+		fi
+		done < input.bak
+		./proj
+		cp output.dat result/input/faculty.dat
 	fi
 	cp input.bak input.dat
 	cp space.bak space.dat
